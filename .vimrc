@@ -13,3 +13,5 @@ set nu                     " line numbering (optional)
 au FileType cpp,c setl mp=make\ %:t:r
 " (works better if you also set $CFLAGS and $CXXFLAGS in bash)
 color evening
+
+set expandtab
