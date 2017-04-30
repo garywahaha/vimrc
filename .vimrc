@@ -29,6 +29,21 @@ nnoremap <leader><space> :nohlsearch<CR>
 
 autocmd BufRead,BufNewFile *.html setlocal spell spelllang=en_us
 
+" auto open as readonly if already openned
+func CheckSwap()
+    swapname
+    if v:statusmsg =~ '\.sw[^p]$'
+        set ro
+    endif
+endfunc
+
+if &swf
+    set shm+=A
+    au BufReadPre * call CheckSwap()
+endif
+
+
+" Vundle
 filetype off
 set runtimepath+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -68,8 +83,6 @@ Plugin 'scrooloose/nerdtree'
     let NERDTreeIgnore = ['\.pyc$']
 
 
-Plugin 'jason0x43/vim-js-indent'
-
 Plugin 'editorconfig/editorconfig-vim'
 
 Plugin 'kien/ctrlp.vim'
@@ -84,8 +97,10 @@ Plugin 'kien/ctrlp.vim'
     let g:ctrlp_match_window = 'bottom,order:ttb'
     let g:ctrlp_switch_buffer = 0
     let g:ctrlp_working_path_mode = 0
+    let g:ctrlp_map = '<c-\>' " Map something that will not be used
+    nnoremap <C-P> :CtrlP ~/src/sloyalty/rewardsimply<CR>
 
-Plugin 'scrooloose/syntastic'
+"Plugin 'scrooloose/syntastic'
 
 Plugin 'sjl/gundo.vim'
     nnoremap <F5> :GundoToggle<CR>
@@ -98,9 +113,25 @@ Plugin 'nathanaelkane/vim-indent-guides'
 
 Plugin 'xolox/vim-easytags'
 Plugin 'xolox/vim-misc'
+    autocmd FileType python let b:easytags_auto_highlight = 0
 
 Plugin 'majutsushi/tagbar'
     nnoremap <F8> :TagbarToggle<CR>
+
+Plugin 'tpope/vim-commentary'
+
+Plugin 'yggdroot/indentline'
+    let g:indentLine_char = '|'
+
+Plugin 'tmhedberg/matchit'
+
+Plugin 'hail2u/vim-css3-syntax'
+
+Plugin 'burnettk/vim-angular'
+
+Plugin 'pangloss/vim-javascript'
+
+Plugin 'tpope/vim-fugitive'
 
 call vundle#end()
 
